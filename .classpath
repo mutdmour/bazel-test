@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="servlet/src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="bazel-bazel-test/external/javax-servlet-api/jar/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
