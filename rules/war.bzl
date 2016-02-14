@@ -101,53 +101,28 @@ def _war_impl(ctxt):
       command="\n".join(cmd),
       use_default_shell_env=True)
 
-  executable = ctxt.outputs.executable
-
-  classpath = [
-      "${JAVA_RUNFILES}/%s" % jar.short_path
-      ]
-  substitutions = {
-    "%{zipper}": ctxt.file._zipper.short_path,
-    "%{war}": ctxt.outputs.war.short_path,
-    "%{java}": ctxt.file._java.short_path,
-    "%{classpath}":  (":".join(classpath)),
-  }
-  ctxt.template_action(
-      output = executable,
-      template = ctxt.file._runner_template,
-      substitutions = substitutions,
-      executable = True)
-  ctxt.template_action(
-      output = ctxt.outputs.deploy,
-      template = ctxt.file._deploy_template,
-      substitutions = substitutions,
-      executable = True)
-
-  runfiles = ctxt.runfiles(files = [war, executable]
-                           + [ctxt.file._java, ctxt.file._zipper])
+  runfiles = ctxt.runfiles(files = [war, ctxt.file._java, ctxt.file._zipper])
   return struct(runfiles = runfiles)
 
 war_file = rule(
     _war_impl,
-    executable = True,
     attrs = {
         "_java": attr.label(
-            default=Label("//tools/jdk:java"),
-            single_file=True),
+            default = Label("@bazel_tools//tools/jdk:java"),
+            single_file = True,
+        ),
         "_zipper": attr.label(
-            default=Label("//third_party/ijar:zipper"),
-            single_file=True),
-        "_runner_template": attr.label(
-            default=Label("//tools/build_rules/appengine:runner_template"),
-            single_file=True),
-        "_deploy_template": attr.label(
-            default=Label("//tools/build_rules/appengine:deploy_template"),
-            single_file=True),
-        "jars": attr.label_list(allow_files=jar_filetype, mandatory=True),
-        "data": attr.label_list(allow_files=True),
+            default = Label("@bazel_tools//third_party/ijar:zipper"),
+            single_file = True,
+        ),
+        "jars": attr.label_list(
+            allow_files = jar_filetype,
+            mandatory = True,
+        ),
+        "data": attr.label_list(allow_files = True),
         "data_path": attr.string(),
     },
     outputs = {
         "war": "%{name}.war",
-        "deploy": "%{name}.deploy",
-    })
+    },
+)
