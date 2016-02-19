@@ -21,8 +21,11 @@ public class Servlet extends HttpServlet
 	protected void doGet( HttpServletRequest request, HttpServletResponse response )
 			throws ServletException, IOException
 	{
+		GetterSetterExample gse = new GetterSetterExample();
+		gse.setAge( 99 );
+		gse.setName( "Todd" );
 		PrintWriter writer = response.getWriter();
-		writer.println( "A servlet without web.xml: " + getServletName() );
+		writer.println( String.format("GSE: %s", gse) );
 		log.debug( "This is a debug message" );
 	}
 }
