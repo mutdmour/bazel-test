@@ -51,7 +51,7 @@ def _make_war(zipper, input_dir, output):
   return [
       "(root=$(pwd);" +
       ("cd %s &&" % input_dir) +
-      ("${root}/%s Cc ${root}/%s $(find .))" % (zipper.path, output.path))
+      ("${root}/%s Cc ${root}/%s $(find *))" % (zipper.path, output.path))
       ]
 
 def _short_path_dirname(path):
