@@ -13,7 +13,6 @@ bind(
 http_jar(
     name = "lombok_jar",
     url = "https://projectlombok.org/lombok-edge.jar",
-    sha256 = "5f4b0898306f52854df729509324ffc472bc263968e5dbd92a701744ddd2d188",
 )
 
 http_jar(

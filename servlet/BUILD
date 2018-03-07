@@ -1,4 +1,4 @@
-load("/rules/war", "war_file")
+load("//rules:war.bzl", "war_file")
 
 war_file(
     name = "backend",
